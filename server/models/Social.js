@@ -15,6 +15,9 @@ const socialSchema = new mongoose.Schema({
     userId:{
         type: String,
         required: [true, 'User Id must be provided']
+    },
+    image:{
+        type: String,
     }
 });
 

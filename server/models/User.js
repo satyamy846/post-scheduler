@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
         socialId:  { 
             type: String,
         },
+        name:{
+            type: String
+        }
     }]
 });
 
