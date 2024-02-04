@@ -3,7 +3,7 @@ import {postInstagram, addInstaHandler} from '../controllers/Social.js';
 
 const router = express.Router();
 
-router.post("/insta", postInstagram );
+router.post("/insta/:userId", postInstagram );
 router.post("/add-insta-account/:userId", addInstaHandler);
 
 

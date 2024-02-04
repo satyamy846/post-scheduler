@@ -6,8 +6,8 @@ import CustomError from './utilities/ErrorHandlers/CustomError.js';
 import globalErrorResponse from './utilities/ErrorHandlers/GlobalErrorResponse.js';
 import userRoute from './routes/User.js';
 import socialRoute from './routes/Social.js';
-import multer from 'multer';
-import path from 'path';
+import {cloudinaryConfig} from './config/CloudinaryConfig.js';
+import {multerUploads} from './middlewares/Multer.js';
 dotenv.config();
 
 const app = express();
@@ -15,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(urlencoded({ extended: false })); // Parse URL-encoded bodies
 app.use(cors({ origin: "*"}));
+app.use("*", cloudinaryConfig);
+app.use(multerUploads);
 
 
 app.get("/", (req, res) =>{
@@ -22,19 +24,7 @@ app.get("/", (req, res) =>{
 })
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      return cb(null, file.fieldname + '-' + uniqueSuffix + ".jpg")
-    }
-});
 
-
-
-app.use(multer({ storage: storage }).single("image"));
 
 /**
  * Routes
